@@ -11,6 +11,7 @@ public class Product {
 	public int noSold;
 	public double profitMade;
 	private DecimalFormat dcFormat;
+	private double prevSellprofit;
 	public Product(String key,float costPrice, float sellingPrice) {
 		this.costPrice = costPrice;
 		this.sellingPrice = sellingPrice;
@@ -18,6 +19,7 @@ public class Product {
 		this.noSold =0;
 		this.quantityAvailable = 0;
 		this.profitMade = 0;
+		this.prevSellprofit =0;
 		this.totValue = 0;
 		dcFormat = new DecimalFormat("#.00");
 	}
@@ -32,7 +34,7 @@ public class Product {
 	}
 	public void setSellingPrice(float sellingPrice) {
 		double profit =calaculateProfit();
-		this.profitMade += profit;
+		this.prevSellprofit += profit;
 		this.noSold = 0;
 		this.sellingPrice = sellingPrice;
 	}
@@ -58,8 +60,8 @@ public class Product {
 		
 	}
 	public double getProfit() {
-		if(this.profitMade>0 && this.noSold == 0) {
-			return calaculateProfit() + this.profitMade;
+		if(this.prevSellprofit>0) {
+			return calaculateProfit() + this.prevSellprofit;
 		}
 		this.profitMade = calaculateProfit();
 		return this.profitMade;
